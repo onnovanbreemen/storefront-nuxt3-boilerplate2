@@ -1,0 +1,32 @@
+name: Linting (Lint)
+
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: './.github/.node-version'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build packages
+        run: yarn build
+
+      - name: Run linter
+        run: yarn lint
