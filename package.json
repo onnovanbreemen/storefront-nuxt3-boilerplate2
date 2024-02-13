@@ -4,7 +4,8 @@
   "private": true,
   "license": "MIT",
   "workspaces": [
-    "apps/*"
+    "apps/*",
+    "api"
   ],
   "scripts": {
     "prepare": "is-ci || husky install",
