@@ -2,12 +2,12 @@ import express from 'express';
 import { sdkModule } from '@vue-storefront/storefront-boilerplate-sdk';
 import { buildModule } from "@vue-storefront/sdk";
 
-
 const connector = buildModule(sdkModule).connector;
 
 const app = express();
 
 console.log('setup', connector);
+console.log('app', app);
 
 
 app.get('/api/getProduct/:slug', (req, res) => {
@@ -65,7 +65,15 @@ app.get('/getContent', (req, res) => {
 app.get('/getContent/:url', (req, res) => {
     connector.getContent({ url: req.url}).then(r => res.send(r))
 });
-app/get('/:any', (req, res) => {
-    res.send('not found' + req.url);
+app.get('/:any', (req, res) => {
+    res.send(`not found: [${req.url}]`);
 });
+
+if (process.argv[2] === '--port' && process.argv[3] && /^\+?(0|[1-9]\d*)$/.test(process.argv[3])) {
+  console.log('listening');
+  app.listen(process.argv[3]);
+}
+
 export default app;
+
+
