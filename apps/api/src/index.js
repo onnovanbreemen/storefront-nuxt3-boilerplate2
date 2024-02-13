@@ -7,7 +7,8 @@ const connector = buildModule(sdkModule).connector;
 
 const app = express();
 
-console.log(connector)
+console.log('setup', connector);
+
 
 app.get('/api/getProduct/:slug', (req, res) => {
     connector.getProduct({ slug: req.query.slug }).then(p => res.send(p));
@@ -35,5 +36,36 @@ app.get('/api/getContent', (req, res) => {
 });
 app.get('/api/getContent/:url', (req, res) => {
     connector.getContent({ url: req.url}).then(r => res.send(r))
+});
+
+app.get('/getProduct/:slug', (req, res) => {
+    connector.getProduct({ slug: req.query.slug }).then(p => res.send(p));
+});
+app.get('/getCart', (req, res) => {
+    connector.getCart().then(r => res.send(r))
+});
+app.get('/getCustomer', (req, res) => {
+    connector.getCustomer().then(r => res.send(r))
+});
+app.get('/getProducts', (req, res) => {
+    connector.getProducts().then(r => res.send(r))
+});
+app.get('/getProductReviews/:slug', (req, res) => {
+    connector.getProductReviews({ slug: req.query.slug }).then(r => res.send(r))
+});
+app.get('/getProductRecommended/:slug', (req, res) => {
+    connector.getProductRecommended({ slug: req.query.slug }).then(r => res.send(r))
+});
+app.get('/getShippingMethods', (req, res) => {
+    connector.getShippingMethods().then(r => res.send(r))
+});
+app.get('/getContent', (req, res) => {
+    connector.getContent({ url: req.url }).then(r => res.send(r))
+});
+app.get('/getContent/:url', (req, res) => {
+    connector.getContent({ url: req.url}).then(r => res.send(r))
+});
+app/get('/:any', (req, res) => {
+    res.send('not found' + req.url);
 });
 export default app;
