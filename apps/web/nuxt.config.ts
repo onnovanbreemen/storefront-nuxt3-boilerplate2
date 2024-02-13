@@ -73,7 +73,7 @@ export default defineNuxtConfig({
   ],
   nitro: {
     prerender: {
-      crawlLinks: true,
+      crawlLinks: false,
     },
     compressPublicAssets: true,
   },
