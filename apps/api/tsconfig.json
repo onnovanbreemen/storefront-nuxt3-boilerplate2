@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "lib": ["DOM", "DOM.Iterable", "ES2019"],
+    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+    "strict": true,                                      /* Enable all strict type-checking options. */
+    "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
+    "outDir": "dist",
+    "composite": false,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "module": "ES2022",
+    "target": "ES6"    
+  },
+  "include": ["src/**/*"]
+}
