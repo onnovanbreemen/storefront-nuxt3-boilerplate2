@@ -50,3 +50,4 @@ lib/
 .vscode
 *.code-workspace
 *.tsbuildinfo
+.vercel
