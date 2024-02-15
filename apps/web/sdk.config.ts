@@ -1,16 +1,16 @@
 import { SdkModule, sdkModule } from '@vue-storefront/storefront-boilerplate-sdk';
 import { createConnector } from 'storefront-nuxt3-boilerplate-sdk';
 
-const createProxiedApi = (occ: any) : any => {
+const createProxiedApi = (occ: any): any => {
   const api = {};
   return new Proxy(api, {
-      get: (target, prop, receiver) => {
-          const functionName = String(prop);
-          if (Reflect.has(target, functionName)) {
-              return Reflect.get(target, prop, receiver);
-          }
-          return async (args: any) => occ.doPost(functionName, args);
+    get: (target, prop, receiver) => {
+      const functionName = String(prop);
+      if (Reflect.has(target, functionName)) {
+        return Reflect.get(target, prop, receiver);
       }
+      return async (args: any) => occ.doGet(functionName, args);
+    }
   });
 }
 
@@ -24,6 +24,7 @@ const determineApiUrl = (): string => {
     host = ''
     port = '';
     base = 'api';
+    return 'https://storefront-nuxt3-boilerplate2.vercel.app/api';
   } else {
     proto = window.location.protocol;
     port = '';
@@ -31,22 +32,23 @@ const determineApiUrl = (): string => {
     base = 'api'
   }
   port = port ? `:${port}` : '';
-  //return `${proto}//${host}${port}/${base}`;
-  return 'https://storefront-nuxt3-boilerplate2.vercel.app/api';
+  return `${proto}//${host}${port}/${base}`;
+
 }
 
 export default defineSdkConfig(({ buildModule }) => {
-    const cache = {};
-    const apiUrl = determineApiUrl();
-    const connector = createProxiedApi(createConnector( {
-      apiUrl,
-      cache
-    })) as SdkModule;
-    type ConnectorType = SdkModule['connector'];
-
-    return {
-     //commerce: buildModule<SdkModule>(sdkModule),
-     commerce: connector
-    }
+  const cache = {};
+  const apiUrl = determineApiUrl();
+  const connector = createProxiedApi(createConnector({
+    apiUrl,
+    cache
+  }))
+  const commerce = {
+    connector
+  } as SdkModule;
+  return {
+    //commerce: buildModule<SdkModule>(sdkModule),
+    commerce
   }
+}
 );
