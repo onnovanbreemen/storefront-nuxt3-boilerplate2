@@ -4,6 +4,9 @@ export default defineNuxtConfig({
   typescript: {
     typeCheck: true,
   },
+  vite: {
+    
+  },
   app: {
     head: {
       viewport: 'minimum-scale=1, initial-scale=1, width=device-width',

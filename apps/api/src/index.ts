@@ -1,5 +1,4 @@
 import express from 'express';
-
 import { sdkModule } from '@vue-storefront/storefront-boilerplate-sdk';
 import { buildModule } from '@vue-storefront/sdk';
 const connector = buildModule(sdkModule).connector;
@@ -70,4 +69,5 @@ app.get('/:any', (req, res) => {
   res.send(`not found: [${req.url}]`);
 });
 
-export default app;
+// export as any to prevent "ParsedQs" is not exported by "../../node_modules/@types/qs/index.d.ts
+export default app as any;
